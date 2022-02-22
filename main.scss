@@ -1,0 +1,169 @@
+body {
+    font-size: 18px;
+    line-height: 1.5;
+    background: #eee;
+    color: #333;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+}
+
+$toastBackground: (
+    "default": #ffffff,
+    "warning": #bf360c,
+    "success": #43a047
+);
+
+    $small: 320px;
+    $medium: 640px;
+    $large: 768px;
+    $extra-large: 1024px;
+
+$breakpoints: (
+    "sm": "min-width:" + $small,
+    "md": "min-width:" + $medium,
+    "lg": "min-width:" + $large,
+    "xl": "min-width:" + $extra-large
+);
+
+h1 {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: $large;
+    margin: 0 auto;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+
+.toast {
+    cursor: pointer;
+    box-sizing: border-box;
+    display: none;
+    width: 100%;
+    max-width: $medium;
+    font-size: 0.825em;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    background: map-get($toastBackground, "default");
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035),
+        0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05),
+        0 100px 80px rgba(0, 0, 0, 0.07);
+    transition: 0.2s ease-in;
+    @media (map-get($breakpoints, "md")) {
+        border-radius: 5px;
+        margin-bottom: 0.5em;
+    }
+    &--active {
+        display: flex;
+        animation: slidein--bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)
+        forwards;
+    }
+    &--warning {
+        background: map-get($toastBackground, "warning");
+        color: white;
+    }
+    &--success {
+        background: map-get($toastBackground, "success");
+        color: white;
+    }
+    &__actions {
+        width: 100%;
+        max-width: $large;
+        margin: 0 auto;
+        display: flex;
+        flex-flow: column;
+    @media (map-get($breakpoints, "md")) {
+        flex-flow: row;
+    }
+    }
+    &__trigger {
+        cursor: pointer;
+        box-sizing: border-box;
+        flex: 1;
+        padding: 1em;
+        margin: 1em;
+        border: 0;
+        background: tomato;
+        border-radius: 5px;
+        color: white;
+        text-transform: uppercase;
+        font-weight: bold;
+        transition: 0.2s ease;
+    &:hover {
+        background: darken(tomato, 10%);
+    }
+    }
+    &__container {
+        box-sizing: border-box;
+        padding: 0em 1em;
+        position: fixed;
+        width: 100%;
+        max-width: $medium;
+        margin: 0 auto;
+        display: flex;
+        flex-flow: column;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        align-items: center;
+        justify-content: center;
+@media (map-get($breakpoints, "md")) {
+        padding: 0 1em;
+}
+    @media (map-get($breakpoints, "xl")) {
+        left: initial;
+        right: 0;
+    }
+    }
+    &__icon {
+        height: 60px;
+        width: 60px;
+        box-sizing: border-box;
+        padding: 1em;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    svg {
+        height: 100%;
+    }
+@media (map-get($breakpoints, "md")) {
+    display: flex;
+}
+    }
+    &__icon ~ &__content {
+        padding: 1em;
+    @media (map-get($breakpoints, "md")) {
+        padding: 1em 1em 1em 0;
+    }
+    }
+    &__content {
+        box-sizing: border-box;
+        padding: 1em;
+    h2 {
+        margin: 0 0 0.25em 0;
+        padding: 0;
+        font-size: 1.2em;
+    }
+    p {
+        margin: 0;
+        padding: 0;
+        font-size: 1em;
+        }
+    }
+}
+
+@keyframes slidein--bottom {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}  
